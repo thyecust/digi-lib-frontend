@@ -32,7 +32,7 @@ export default function Login() {
             );
             if (error) throw error;
         } catch (error) {
-            alert(error);
+            alert(error.message);
         } finally {
             setLoading(false);
         }
@@ -53,6 +53,7 @@ export default function Login() {
                     disabled={!passwordEnabled}
                     id="password"
                     name="password"
+                    type="password"
                     label="密码"
                 />
             </div>

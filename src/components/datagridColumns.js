@@ -119,7 +119,7 @@ const BookApplyColumns = () => [
     {
         field: "libUrl",
         headerName: "图书馆链接",
-        width: 200,
+        width: 450,
     },
     {
         field: "handleTime",

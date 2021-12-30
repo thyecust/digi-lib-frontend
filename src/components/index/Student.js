@@ -20,14 +20,6 @@ const courses = [
         viewable: true,
     },
     {
-        id: 2,
-        code: "00002",
-        name: "线性代数",
-        major: "公共基础",
-        term: "2021-2022-2",
-        viewable: true,
-    },
-    {
         id: 3,
         code: "00003",
         name: "毛泽东思想与中国特色社会主义思想导论",

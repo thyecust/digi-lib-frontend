@@ -20,7 +20,7 @@ export default function PasswordReset() {
             }
             console.log(user);
         } catch (error) {
-            alert(error);
+            alert(error.message);
         } finally {
         }
     };

@@ -9,7 +9,7 @@ export default function Logout() {
             const { error } = await supabase.auth.signOut();
             if (error) throw error;
         } catch (error) {
-            alert(error);
+            alert(error.message);
         }
     };
 
