@@ -7,7 +7,7 @@ import supabase from "../../supabase/Client";
 import ViewCourseBooks from "../view/ViewCourseBooks";
 import EditCourseForm from "./EditCourseForm";
 
-export default function EditCourse({ courseId, setCourseId }) {
+export default function EditCourse({ user, courseId, setCourseId }) {
     const [uploadingCourseResources, setUploadingCourseResources] =
         useState(false);
     const [creatingBook, setCreatingBook] = useState(false);
@@ -20,12 +20,13 @@ export default function EditCourse({ courseId, setCourseId }) {
             let courseData = {};
             let courseRes = await supabase
                 .from("courses")
-                .select(`name, term, teacher_id, major, description`)
+                .select(`id, name, term, teacher_id, major, description`)
                 .eq("id", courseId)
                 .single();
 
             if (courseRes.error) throw courseRes.error;
             if (!courseRes.data) throw Error("no such course info");
+            courseData["id"] = courseRes.data.id;
             courseData["name"] = courseRes.data.name;
             courseData["term"] = courseRes.data.term;
             courseData["teacher_id"] = courseRes.data.teacher_id;
@@ -53,7 +54,15 @@ export default function EditCourse({ courseId, setCourseId }) {
     };
 
     const deleteBook = async (bookId) => {
-        console.log(bookId);
+        try {
+            const { data, error, status } = await supabase
+                .from("course_books")
+                .delete()
+                .match({ id: bookId });
+            if (error) throw error;
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     useEffect(() => {
@@ -72,7 +81,13 @@ export default function EditCourse({ courseId, setCourseId }) {
     }
 
     if (creatingBook) {
-        return <CreateBook setCreatingBook={setCreatingBook} />;
+        return (
+            <CreateBook
+                course={course}
+                user={user}
+                setCreatingBook={setCreatingBook}
+            />
+        );
     }
 
     return (

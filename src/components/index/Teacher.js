@@ -70,6 +70,7 @@ export default function Teacher({ user }) {
     if (editingCourseId) {
         return (
             <EditCourse
+                user={user}
                 courseId={editingCourseId}
                 setCourseId={setEditingCourseId}
             />
