@@ -1,9 +1,10 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, getFormControlUtilityClasses } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
 import { ViewCourse } from "../view";
-import MoreIcon from "@mui/icons-material/More";
+import { StudentCourseColumns } from "../datagridColumns";
+import supabase from "../../supabase/Client";
 
 const user = {
     name: "汤同学",
@@ -36,51 +37,60 @@ const courses = [
     },
 ];
 
-function StudentCourses({ setViewingCourseId }) {
-    const studentCourseColumns = [
-        {
-            field: "code",
-            headerName: "课程编号",
-            width: 150,
-        },
-        {
-            field: "name",
-            headerName: "课程名称",
-            width: 300,
-            sortable: false,
-        },
-        {
-            field: "major",
-            headerName: "开课专业",
-            width: 150,
-        },
-        {
-            field: "term",
-            headerName: "开课学期",
-            width: 150,
-        },
-        {
-            field: "actions",
-            type: "actions",
-            width: 80,
-            getActions: (params) => [
-                <GridActionsCellItem
-                    icon={<MoreIcon />}
-                    label="查看课程"
-                    onClick={(e) => {
-                        setViewingCourseId(params.id);
-                    }}
-                />,
-            ],
-        },
-    ];
+function StudentCourses({ studentId, setViewingCourseId }) {
+    const [courses, setCourses] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    const columns = StudentCourseColumns(setViewingCourseId);
+
+    const getCourses = async () => {
+        try {
+            setLoading(true);
+            let courseIdRes = await supabase
+                .from("course_students")
+                .select(`course_id`)
+                .eq("student_id", studentId);
+
+            if (courseIdRes.error) throw courseIdRes.error;
+            if (!courseIdRes.data) {
+                setCourses([]);
+                return;
+            }
+            const courseIds = courseIdRes.data.map((d) => d.course_id);
+            console.log(courseIds);
+            const courseRes = await supabase
+                .from("courses")
+                .select(`id, name, term, major`)
+                .in("id", courseIds);
+
+            if (courseRes.error) throw courseRes.error;
+            if (!courseRes.data) throw Error("no such courses");
+            const courseData = courseRes.data.map((d) => ({
+                id: d.id,
+                name: d.name,
+                major: d.major,
+                term: d.term,
+            }));
+            setCourses(courseData);
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getCourses();
+    }, [studentId]);
+
+    if (loading) return <p>Loading</p>;
 
     return (
         <Box>
             <div style={{ height: 300, width: "100%" }}>
                 <DataGrid
                     rows={courses}
-                    columns={studentCourseColumns}
+                    columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
                 />
@@ -128,11 +138,16 @@ function AllCourses() {
     );
 }
 
-export default function Student() {
+export default function Student({ user }) {
     const [viewingCourseId, setViewingCourseId] = useState(null);
 
     if (viewingCourseId) {
-        return <ViewCourse setViewingCourseId={setViewingCourseId} />;
+        return (
+            <ViewCourse
+                courseId={viewingCourseId}
+                setViewingCourseId={setViewingCourseId}
+            />
+        );
     }
 
     return (
@@ -143,7 +158,10 @@ export default function Student() {
             <Box m={1}>
                 <h2>您的选课</h2>
             </Box>
-            <StudentCourses setViewingCourseId={setViewingCourseId} />
+            <StudentCourses
+                studentId={user.id}
+                setViewingCourseId={setViewingCourseId}
+            />
             <Box m={1}>
                 <h2>其他课程</h2>
             </Box>

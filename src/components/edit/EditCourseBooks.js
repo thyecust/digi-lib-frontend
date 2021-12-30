@@ -1,45 +1,12 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { CreateBook } from "../create";
+import { EditingBookColumns } from "../datagridColumns";
 
 function CourseBooks() {
-    const courseBookColumns = [
-        {
-            field: "bookName",
-            headerName: "书籍名称",
-            width: 250,
-        },
-        {
-            field: "isbn",
-            headerName: "ISBN",
-            width: 150,
-        },
-        {
-            field: "author",
-            headerName: "作者",
-            width: 150,
-        },
-        {
-            field: "libUrl",
-            headerName: "图书馆链接",
-            width: 350,
-        },
-        {
-            field: "actions",
-            type: "actions",
-            width: 80,
-            getActions: (params) => [
-                <GridActionsCellItem
-                    icon={<DeleteIcon />}
-                    label="编辑课程"
-                    onClick={(e) => {}}
-                />,
-            ],
-        },
-    ];
+    const courseBookColumns = EditingBookColumns();
 
     const courseBooks = [
         {
