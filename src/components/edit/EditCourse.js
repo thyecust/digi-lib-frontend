@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import EditCourseResources from "./EditCourseResources";
-import { EditCourseBooks } from "../edit";
+import { CreateBook } from "../create";
 import { ClickButton, GobackButtion } from "../utils";
 import supabase from "../../supabase/Client";
 import ViewCourseBooks from "../view/ViewCourseBooks";
@@ -10,7 +10,7 @@ import EditCourseForm from "./EditCourseForm";
 export default function EditCourse({ courseId, setCourseId }) {
     const [uploadingCourseResources, setUploadingCourseResources] =
         useState(false);
-    const [editingBook, setEditingBook] = useState(false);
+    const [creatingBook, setCreatingBook] = useState(false);
     const [course, setCourse] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -52,6 +52,10 @@ export default function EditCourse({ courseId, setCourseId }) {
         }
     };
 
+    const deleteBook = async (bookId) => {
+        console.log(bookId);
+    };
+
     useEffect(() => {
         getCourse();
     }, [courseId]);
@@ -67,8 +71,8 @@ export default function EditCourse({ courseId, setCourseId }) {
         );
     }
 
-    if (editingBook) {
-        return <EditCourseBooks setEditingBook={setEditingBook} />;
+    if (creatingBook) {
+        return <CreateBook setCreatingBook={setCreatingBook} />;
     }
 
     return (
@@ -89,9 +93,11 @@ export default function EditCourse({ courseId, setCourseId }) {
             <EditCourseForm courseId={courseId} />
             <ViewCourseBooks
                 courseId={courseId}
-                editable={true}
-                setter={setEditingBook}
-                value={true}
+                creatable={true}
+                createSetter={setCreatingBook}
+                createValue={true}
+                deletable={true}
+                deleteIdHandler={deleteBook}
             />
         </Box>
     );

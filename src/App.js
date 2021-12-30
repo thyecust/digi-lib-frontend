@@ -1,7 +1,4 @@
-import { Index, Login, Teacher, Lib, Student } from "./components/index";
-import { CreateBook } from "./components/create";
-import { EditBookApply, EditCourse, EditCourseBooks } from "./components/edit";
-import { ViewCourse, ViewCourseResources } from "./components/view";
+import { Index, Login } from "./components/index";
 import { Logout, PasswordReset } from "./debug";
 import { useEffect, useState } from "react";
 import supabase from "./supabase/Client";

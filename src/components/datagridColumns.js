@@ -63,7 +63,7 @@ const BookColumns = () => [
     },
 ];
 
-const EditingBookColumns = () => [
+const DeletableBookColumns = (deleteIdHandler) => [
     ...BookColumns(),
     {
         field: "actions",
@@ -73,10 +73,12 @@ const EditingBookColumns = () => [
             <GridActionsCellItem
                 icon={<DeleteIcon />}
                 label="删除参考书"
-                onClick={(e) => {}}
+                onClick={(e) => {
+                    deleteIdHandler(params.id);
+                }}
             />,
         ],
     },
 ];
 
-export { StudentCourseColumns, BookColumns, EditingBookColumns };
+export { StudentCourseColumns, BookColumns, DeletableBookColumns };

@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { BookColumns } from "../datagridColumns";
+import { BookColumns, DeletableBookColumns } from "../datagridColumns";
 import { useState, useEffect } from "react";
 import supabase from "../../supabase/Client";
 import { Box } from "@mui/system";
@@ -7,13 +7,17 @@ import { ClickButton } from "../utils";
 
 export default function ViewCourseBooks({
     courseId,
-    editable = false,
-    setter,
-    value,
+    creatable = false,
+    deletable = false,
+    createSetter,
+    createValue,
+    deleteIdHandler,
 }) {
     const [books, setBooks] = useState(null);
     const [loading, setLoading] = useState(true);
-    const columns = BookColumns();
+    const columns = deletable
+        ? DeletableBookColumns(deleteIdHandler)
+        : BookColumns();
 
     const getLibUrl = (libBookData, bookId) => {
         const ld = libBookData.find((d) => d.id === bookId);
@@ -82,11 +86,11 @@ export default function ViewCourseBooks({
         <Box>
             <div style={{ display: "flex", alignItems: "center" }}>
                 <h2>课程教参</h2>
-                {editable && (
+                {creatable && (
                     <ClickButton
-                        text={"编辑课程参考"}
-                        setter={setter}
-                        value={value}
+                        text={"创建课程参考"}
+                        setter={createSetter}
+                        value={createValue}
                     />
                 )}
             </div>
