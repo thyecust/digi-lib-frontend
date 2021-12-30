@@ -119,11 +119,18 @@ function EditBookApplyFrom() {
     );
 }
 
-export default function EditBookApply() {
+export default function EditBookApply({ setEditingBookApplyId }) {
     return (
         <Box sx={{ textAlign: "-webkit-center" }}>
             <Box>
-                <Button sx={{ float: "right" }} size="small" variant="outlined">
+                <Button
+                    sx={{ float: "right" }}
+                    size="small"
+                    variant="outlined"
+                    onClick={(e) => {
+                        setEditingBookApplyId(null);
+                    }}
+                >
                     返回
                 </Button>
                 <h1>

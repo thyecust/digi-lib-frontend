@@ -1,54 +1,13 @@
 import { TextField, Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { EditBookApply } from "../edit";
+import EditIcon from "@mui/icons-material/Edit";
+import { useState } from "react";
 
 const user = {
     name: "张老师",
 };
-
-const bookApplyColumns = [
-    {
-        field: "applyId",
-        headerName: "申请编号",
-        width: 90,
-    },
-    {
-        field: "bookName",
-        headerName: "书籍名称",
-        width: 300,
-    },
-    {
-        field: "isbn",
-        headerName: "ISBN",
-        width: 200,
-    },
-    {
-        field: "courseName",
-        headerName: "对应课程",
-        width: 150,
-    },
-    {
-        field: "applyerName",
-        headerName: "申请人",
-        width: 150,
-    },
-    {
-        field: "status",
-        headerName: "处理状态",
-        width: 150,
-    },
-    {
-        field: "handleTime",
-        headerName: "处理时间",
-        width: 200,
-    },
-    {
-        field: "editable",
-        headerName: "处理",
-        width: 90,
-        renderCell: EditBookApplyButton,
-    },
-];
 
 const bookApplys = [
     {
@@ -68,7 +27,59 @@ function EditBookApplyButton() {
     return <Button>处理申请</Button>;
 }
 
-function BookApplys() {
+function BookApplys({ setEditingBookApplyId }) {
+    const bookApplyColumns = [
+        {
+            field: "applyId",
+            headerName: "申请编号",
+            width: 90,
+        },
+        {
+            field: "bookName",
+            headerName: "书籍名称",
+            width: 300,
+        },
+        {
+            field: "isbn",
+            headerName: "ISBN",
+            width: 200,
+        },
+        {
+            field: "courseName",
+            headerName: "对应课程",
+            width: 150,
+        },
+        {
+            field: "applyerName",
+            headerName: "申请人",
+            width: 150,
+        },
+        {
+            field: "status",
+            headerName: "处理状态",
+            width: 150,
+        },
+        {
+            field: "handleTime",
+            headerName: "处理时间",
+            width: 200,
+        },
+        {
+            field: "actions",
+            type: "actions",
+            width: 80,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    icon={<EditIcon />}
+                    label="处理图书申请"
+                    onClick={(e) => {
+                        setEditingBookApplyId(params.id);
+                    }}
+                />,
+            ],
+        },
+    ];
+
     return (
         <Box>
             <div style={{ height: 300, width: "100%" }}>
@@ -84,6 +95,12 @@ function BookApplys() {
 }
 
 export default function Lib() {
+    const [editingBookApplyId, setEditingBookApplyId] = useState(null);
+
+    if (editingBookApplyId) {
+        return <EditBookApply setEditingBookApplyId={setEditingBookApplyId} />;
+    }
+
     return (
         <Box>
             <Box>
@@ -92,7 +109,7 @@ export default function Lib() {
             <Box m={1}>
                 <h2>待处理的书籍申请</h2>
             </Box>
-            <BookApplys />
+            <BookApplys setEditingBookApplyId={setEditingBookApplyId} />
         </Box>
     );
 }
