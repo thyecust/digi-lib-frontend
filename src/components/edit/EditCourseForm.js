@@ -20,6 +20,7 @@ export default function EditCourseForm({ courseId }) {
         } catch (error) {
             alert(error.message);
         } finally {
+            alert("处理完成");
         }
     };
 
