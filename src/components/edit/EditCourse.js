@@ -90,8 +90,8 @@ export default function EditCourse({ courseId, setCourseId }) {
             <ViewCourseBooks
                 courseId={courseId}
                 editable={true}
-                setter={setCourseId}
-                value={courseId}
+                setter={setEditingBook}
+                value={true}
             />
         </Box>
     );
