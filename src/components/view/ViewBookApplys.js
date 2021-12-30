@@ -14,7 +14,9 @@ export default function ViewBookApplys({ userId }) {
             setLoading(true);
             const { data, error, status } = await supabase
                 .from("book_applys")
-                .select(`id, name, isbn, course_name, status, update_at`)
+                .select(
+                    `id, name, isbn, course_name, lib_url, status, update_at`
+                )
                 .eq("created_user_id", userId);
 
             if (error) throw error;
@@ -25,7 +27,8 @@ export default function ViewBookApplys({ userId }) {
                     isbn: d.isbn,
                     courseName: d.course_name,
                     status: d.status,
-                    handleTime: d.updated_time,
+                    libUrl: d.lib_url,
+                    handleTime: d.update_at,
                 }))
             );
         } catch (error) {

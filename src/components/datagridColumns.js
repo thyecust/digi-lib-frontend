@@ -1,9 +1,38 @@
 import MoreIcon from "@mui/icons-material/More";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import DownloadIcon from "@mui/icons-material/Download";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { ClickEvent } from "./utils";
+
+const FileColumns = (downloadFilenameHandler) => [
+    {
+        field: "fileName",
+        headerName: "文件名",
+        width: 350,
+    },
+    {
+        field: "uploadTime",
+        headerName: "上传时间",
+        type: "dateTime",
+        valueGetter: ({ value }) => value && new Date(value),
+        width: 250,
+    },
+    {
+        field: "actions",
+        type: "actions",
+        width: 80,
+        getActions: (params) => [
+            <GridActionsCellItem
+                icon={<DownloadIcon />}
+                label="下载文件"
+                onClick={(e) => {
+                    downloadFilenameHandler(params.row.fileName);
+                }}
+            />,
+        ],
+    },
+];
 
 const LibColumns = (setter) => [
     {
@@ -88,8 +117,15 @@ const BookApplyColumns = () => [
         width: 150,
     },
     {
+        field: "libUrl",
+        headerName: "图书馆链接",
+        width: 200,
+    },
+    {
         field: "handleTime",
         headerName: "处理时间",
+        type: "dateTime",
+        valueGetter: ({ value }) => value && new Date(value),
         width: 200,
     },
 ];
@@ -172,6 +208,7 @@ const DeletableBookColumns = (deleteIdHandler) => [
 ];
 
 export {
+    FileColumns,
     LibColumns,
     StudentCourseColumns,
     BookApplyColumns,

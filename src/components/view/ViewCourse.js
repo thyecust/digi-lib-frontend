@@ -20,12 +20,13 @@ export default function ViewCourse({ courseId, setViewingCourseId }) {
             let courseData = {};
             let courseRes = await supabase
                 .from("courses")
-                .select(`name, term, teacher_id, major, description`)
+                .select(`id, name, term, teacher_id, major, description`)
                 .eq("id", courseId)
                 .single();
 
             if (courseRes.error) throw courseRes.error;
             if (!courseRes.data) throw Error("no such course info");
+            courseData["id"] = courseRes.data.id;
             courseData["name"] = courseRes.data.name;
             courseData["term"] = courseRes.data.term;
             courseData["teacher_id"] = courseRes.data.teacher_id;
@@ -61,7 +62,9 @@ export default function ViewCourse({ courseId, setViewingCourseId }) {
     if (viewingCourseResources) {
         return (
             <ViewCourseRecources
-                setViewingCourseResources={setViewingCourseResources}
+                course={course}
+                setter={setViewingCourseResources}
+                value={false}
             />
         );
     }

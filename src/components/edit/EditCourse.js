@@ -74,6 +74,7 @@ export default function EditCourse({ user, courseId, setCourseId }) {
     if (uploadingCourseResources) {
         return (
             <EditCourseResources
+                course={course}
                 setter={setUploadingCourseResources}
                 value={null}
             />
