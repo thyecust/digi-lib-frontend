@@ -25,10 +25,7 @@ function EditCourseResourcesFrom() {
     );
 }
 
-export default function EditCourseResources({
-    uploadingCourseId,
-    setUploadingCourseId,
-}) {
+export default function EditCourseResources({ setUploadingCourse }) {
     return (
         <Box sx={{ textAlign: "-webkit-center" }}>
             <Box>
@@ -37,7 +34,7 @@ export default function EditCourseResources({
                     size="small"
                     variant="outlined"
                     onClick={(e) => {
-                        setUploadingCourseId(null);
+                        setUploadingCourse(false);
                     }}
                 >
                     返回

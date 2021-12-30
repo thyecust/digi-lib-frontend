@@ -69,7 +69,7 @@ const CourseResources = () => {
     );
 };
 
-export default function ViewCourse({}) {
+export default function ViewCourseRecources({ setViewingCourseResources }) {
     return (
         <Box sx={{ textAlign: "flex" }}>
             <Box>
@@ -77,7 +77,9 @@ export default function ViewCourse({}) {
                     sx={{ float: "right" }}
                     size="small"
                     variant="outlined"
-                    onClick={(e) => {}}
+                    onClick={(e) => {
+                        setViewingCourseResources(false);
+                    }}
                 >
                     返回
                 </Button>

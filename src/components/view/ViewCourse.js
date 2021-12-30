@@ -2,6 +2,7 @@ import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import ViewCourseRecources from "./ViewCourseResources";
 
 const course = {
     id: 2,
@@ -105,7 +106,17 @@ const ShowCourseBooks = () => {
     );
 };
 
-export default function ViewCourse({}) {
+export default function ViewCourse({ setViewingCourseId }) {
+    const [viewingCourseResources, setViewingCourseResources] = useState(false);
+
+    if (viewingCourseResources) {
+        return (
+            <ViewCourseRecources
+                setViewingCourseResources={setViewingCourseResources}
+            />
+        );
+    }
+
     return (
         <Box sx={{ textAlign: "flex" }}>
             <Box>
@@ -113,7 +124,9 @@ export default function ViewCourse({}) {
                     sx={{ float: "right" }}
                     size="small"
                     variant="outlined"
-                    onClick={(e) => {}}
+                    onClick={(e) => {
+                        setViewingCourseId(null);
+                    }}
                 >
                     返回
                 </Button>
@@ -124,7 +137,9 @@ export default function ViewCourse({}) {
                         variant="outlined"
                         sx={{ mx: 1 }}
                         color="info"
-                        onClick={(e) => {}}
+                        onClick={(e) => {
+                            setViewingCourseResources(true);
+                        }}
                     >
                         查看课程资料
                     </Button>

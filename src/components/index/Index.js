@@ -1,6 +1,3 @@
-import { TextField, Button } from "@mui/material";
-import { Box } from "@mui/system";
-import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import Student from "./Student";
 import Teacher from "./Teacher";

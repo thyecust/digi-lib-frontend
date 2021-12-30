@@ -1,66 +1,13 @@
 import { TextField, Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { useState } from "react";
+import { ViewCourse } from "../view";
+import MoreIcon from "@mui/icons-material/More";
 
 const user = {
     name: "汤同学",
 };
-
-const studentCourseColumns = [
-    {
-        field: "code",
-        headerName: "课程编号",
-        width: 150,
-    },
-    {
-        field: "name",
-        headerName: "课程名称",
-        width: 300,
-        sortable: false,
-    },
-    {
-        field: "major",
-        headerName: "开课专业",
-        width: 150,
-    },
-    {
-        field: "term",
-        headerName: "开课学期",
-        width: 150,
-    },
-    {
-        field: "viewable",
-        headerName: "查看",
-        sortable: false,
-        filterable: false,
-        disableColumnMenu: true,
-        renderCell: ViewCourseButton,
-    },
-];
-
-const allCourseColumns = [
-    {
-        field: "code",
-        headerName: "课程编号",
-        width: 150,
-    },
-    {
-        field: "name",
-        headerName: "课程名称",
-        width: 300,
-        sortable: false,
-    },
-    {
-        field: "major",
-        headerName: "开课专业",
-        width: 150,
-    },
-    {
-        field: "term",
-        headerName: "开课学期",
-        width: 150,
-    },
-];
 
 const courses = [
     {
@@ -89,11 +36,45 @@ const courses = [
     },
 ];
 
-function ViewCourseButton() {
-    return <Button>查看课程</Button>;
-}
+function StudentCourses({ setViewingCourseId }) {
+    const studentCourseColumns = [
+        {
+            field: "code",
+            headerName: "课程编号",
+            width: 150,
+        },
+        {
+            field: "name",
+            headerName: "课程名称",
+            width: 300,
+            sortable: false,
+        },
+        {
+            field: "major",
+            headerName: "开课专业",
+            width: 150,
+        },
+        {
+            field: "term",
+            headerName: "开课学期",
+            width: 150,
+        },
+        {
+            field: "actions",
+            type: "actions",
+            width: 80,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    icon={<MoreIcon />}
+                    label="查看课程"
+                    onClick={(e) => {
+                        setViewingCourseId(params.id);
+                    }}
+                />,
+            ],
+        },
+    ];
 
-function StudentCourses() {
     return (
         <Box>
             <div style={{ height: 300, width: "100%" }}>
@@ -109,6 +90,30 @@ function StudentCourses() {
 }
 
 function AllCourses() {
+    const allCourseColumns = [
+        {
+            field: "code",
+            headerName: "课程编号",
+            width: 150,
+        },
+        {
+            field: "name",
+            headerName: "课程名称",
+            width: 300,
+            sortable: false,
+        },
+        {
+            field: "major",
+            headerName: "开课专业",
+            width: 150,
+        },
+        {
+            field: "term",
+            headerName: "开课学期",
+            width: 150,
+        },
+    ];
+
     return (
         <Box>
             <div style={{ height: 300, width: "100%" }}>
@@ -124,6 +129,12 @@ function AllCourses() {
 }
 
 export default function Student() {
+    const [viewingCourseId, setViewingCourseId] = useState(null);
+
+    if (viewingCourseId) {
+        return <ViewCourse setViewingCourseId={setViewingCourseId} />;
+    }
+
     return (
         <Box>
             <Box>
@@ -132,7 +143,7 @@ export default function Student() {
             <Box m={1}>
                 <h2>您的选课</h2>
             </Box>
-            <StudentCourses />
+            <StudentCourses setViewingCourseId={setViewingCourseId} />
             <Box m={1}>
                 <h2>其他课程</h2>
             </Box>

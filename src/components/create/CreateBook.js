@@ -78,11 +78,18 @@ function CreateBookFrom() {
     );
 }
 
-export default function CreateBook() {
+export default function CreateBook({ setCreatingBook }) {
     return (
         <Box sx={{ textAlign: "-webkit-center" }}>
             <Box>
-                <Button sx={{ float: "right" }} size="small" variant="outlined">
+                <Button
+                    sx={{ float: "right" }}
+                    size="small"
+                    variant="outlined"
+                    onClick={(e) => {
+                        setCreatingBook(false);
+                    }}
+                >
                     返回
                 </Button>
                 <h1>

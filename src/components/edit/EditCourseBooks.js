@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useState } from "react";
+import { CreateBook } from "../create";
 
 function CourseBooks() {
     const courseBookColumns = [
@@ -64,10 +66,23 @@ function CourseBooks() {
     );
 }
 
-export default function EditCourseBooks() {
+export default function EditCourseBooks({ setEditingBook }) {
+    const [creatingBook, setCreatingBook] = useState(false);
+
+    if (creatingBook) {
+        return <CreateBook setCreatingBook={setCreatingBook} />;
+    }
+
     return (
         <Box>
-            <Button sx={{ float: "right" }} size="small" variant="outlined">
+            <Button
+                sx={{ float: "right" }}
+                size="small"
+                variant="outlined"
+                onClick={(e) => {
+                    setEditingBook(false);
+                }}
+            >
                 返回
             </Button>
             <Box>
@@ -80,7 +95,9 @@ export default function EditCourseBooks() {
                     variant="outlined"
                     sx={{ mx: 1 }}
                     color="info"
-                    onClick={(e) => {}}
+                    onClick={(e) => {
+                        setCreatingBook(true);
+                    }}
                 >
                     创建参考书
                 </Button>

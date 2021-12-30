@@ -125,25 +125,20 @@ const ShowCourseBooks = ({ courseId, setBookEditingCourseId }) => {
 };
 
 export default function EditCourse({ editingCourseId, setEditingCourseId }) {
-    const [uploadingCourseId, setUploadingCourseId] = useState(null);
-    const [bookEditingCourseId, setBookEditingCourseId] = useState(null);
+    const [uploadingCourseResources, setUploadingCourseResources] =
+        useState(false);
+    const [editingBook, setEditingBook] = useState(false);
 
-    if (uploadingCourseId) {
+    if (uploadingCourseResources) {
         return (
             <EditCourseResources
-                uploadingCourseId={uploadingCourseId}
-                setUploadingCourseId={setUploadingCourseId}
+                setUploadingCourse={setUploadingCourseResources}
             />
         );
     }
 
-    if (bookEditingCourseId) {
-        return (
-            <EditCourseBooks
-                bookEditingCourseId={bookEditingCourseId}
-                setBookEditingCourseId={setBookEditingCourseId}
-            />
-        );
+    if (editingBook) {
+        return <EditCourseBooks setEditingBook={setEditingBook} />;
     }
 
     return (
@@ -168,7 +163,9 @@ export default function EditCourse({ editingCourseId, setEditingCourseId }) {
                         variant="outlined"
                         sx={{ mx: 1 }}
                         color="info"
-                        onClick={(e) => setUploadingCourseId(editingCourseId)}
+                        onClick={(e) =>
+                            setUploadingCourseResources(editingCourseId)
+                        }
                     >
                         添加课程资料
                     </Button>
@@ -177,7 +174,7 @@ export default function EditCourse({ editingCourseId, setEditingCourseId }) {
             <EditCourseForm />
             <ShowCourseBooks
                 courseId={editingCourseId}
-                setBookEditingCourseId={setBookEditingCourseId}
+                setBookEditingCourseId={setEditingBook}
             />
         </Box>
     );
