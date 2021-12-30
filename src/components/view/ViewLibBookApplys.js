@@ -15,7 +15,7 @@ export default function ViewLibBookApplys({ userId, setter }) {
             const { data, error, status } = await supabase
                 .from("book_applys")
                 .select(
-                    `id, name, isbn, course_name, status, applyer_name, update_at`
+                    `id, name, isbn, course_name, status, applyer_name, created_at, update_at`
                 );
 
             if (error) throw error;
@@ -27,9 +27,11 @@ export default function ViewLibBookApplys({ userId, setter }) {
                     courseName: d.course_name,
                     applyerName: d.applyer_name,
                     status: d.status,
-                    handleTime: d.updated_time,
+                    applyTime: d.created_at,
+                    handleTime: d.update_at,
                 }))
             );
+            console.log(libBookApplys)
         } catch (error) {
             alert(error.message);
         } finally {

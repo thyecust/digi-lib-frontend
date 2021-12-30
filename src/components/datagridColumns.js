@@ -39,6 +39,8 @@ const LibColumns = (setter) => [
     {
         field: "handleTime",
         headerName: "处理时间",
+        type: "dateTime",
+        valueGetter: ({ value }) => value && new Date(value),
         width: 200,
     },
     {

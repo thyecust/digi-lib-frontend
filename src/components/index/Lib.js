@@ -4,10 +4,10 @@ import { useState } from "react";
 import ViewLibBookApplys from "../view/ViewLibBookApplys";
 
 export default function Lib({ user }) {
-    const [editingBookApplyId, setEditingBookApplyId] = useState(null);
+    const [editingApplyId, setEditingApplyId] = useState(null);
 
-    if (editingBookApplyId) {
-        return <EditBookApply setEditingBookApplyId={setEditingBookApplyId} />;
+    if (editingApplyId) {
+        return <EditBookApply applyId={editingApplyId} setter={setEditingApplyId} />;
     }
 
     return (
@@ -20,7 +20,7 @@ export default function Lib({ user }) {
             </Box>
             <ViewLibBookApplys
                 userId={user.id}
-                setter={setEditingBookApplyId}
+                setter={setEditingApplyId}
             />
         </Box>
     );

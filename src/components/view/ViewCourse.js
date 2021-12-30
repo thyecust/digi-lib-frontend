@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 
 import ViewCourseRecources from "./ViewCourseResources";
-import { ClickButton, GobackButtion } from "../utils";
+import { ClickButton, GobackButton } from "../utils";
 import ViewCourseBooks from "./ViewCourseBooks";
 import ViewCourseBasics from "./ViewCourseBasics";
 
@@ -80,7 +80,7 @@ export default function ViewCourse({ courseId, setViewingCourseId }) {
     return (
         <Box sx={{ textAlign: "flex" }}>
             <Box>
-                <GobackButtion setter={setViewingCourseId} value={null} />
+                <GobackButton setter={setViewingCourseId} value={null} />
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h1>
                         {course.name}（{course.term}）

@@ -2,7 +2,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import EditCourseResources from "./EditCourseResources";
 import { CreateBook } from "../create";
-import { ClickButton, GobackButtion } from "../utils";
+import { ClickButton, GobackButton } from "../utils";
 import supabase from "../../supabase/Client";
 import ViewCourseBooks from "../view/ViewCourseBooks";
 import EditCourseForm from "./EditCourseForm";
@@ -93,7 +93,7 @@ export default function EditCourse({ user, courseId, setCourseId }) {
     return (
         <Box sx={{ textAlign: "flex" }}>
             <Box>
-                <GobackButtion setter={setCourseId} value={null} />
+                <GobackButton setter={setCourseId} value={null} />
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <h1>
                         {course.name}（{course.term}）

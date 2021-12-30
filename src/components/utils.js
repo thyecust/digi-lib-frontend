@@ -17,8 +17,8 @@ const ClickButton = ({ text, setter, value }) => {
     );
 };
 
-const GobackButtion = ({ setter, value }) => {
+const GobackButton = ({ setter, value }) => {
     return ClickButton({ text: "返回", setter: setter, value: value });
 };
 
-export { GobackButtion, ClickEvent, ClickButton };
+export { GobackButton, ClickEvent, ClickButton };
