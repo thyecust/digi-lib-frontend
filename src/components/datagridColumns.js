@@ -4,6 +4,39 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { ClickEvent } from "./utils";
 
+const BookApplyColumns = () => [
+    {
+        field: "id",
+        headerName: "申请编号",
+        width: 90,
+    },
+    {
+        field: "bookName",
+        headerName: "书籍名称",
+        width: 300,
+    },
+    {
+        field: "isbn",
+        headerName: "ISBN",
+        width: 200,
+    },
+    {
+        field: "courseName",
+        headerName: "对应课程",
+        width: 150,
+    },
+    {
+        field: "status",
+        headerName: "处理状态",
+        width: 150,
+    },
+    {
+        field: "handleTime",
+        headerName: "处理时间",
+        width: 200,
+    },
+];
+
 const StudentCourseColumns = (setter) => [
     {
         field: "id",
@@ -81,4 +114,9 @@ const DeletableBookColumns = (deleteIdHandler) => [
     },
 ];
 
-export { StudentCourseColumns, BookColumns, DeletableBookColumns };
+export {
+    StudentCourseColumns,
+    BookApplyColumns,
+    BookColumns,
+    DeletableBookColumns,
+};
