@@ -1,7 +1,9 @@
 import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid } from "@mui/x-data-grid";
+import EditCourseResources from "./EditCourseResources";
+import { EditCourseBooks } from "../edit";
 
 const course = {
     id: 2,
@@ -11,8 +13,8 @@ const course = {
     term: "2021-2022-2",
     teacherName: "罗老师",
     description: "",
-    viewable: true
-}
+    viewable: true,
+};
 
 const courseBooks = [
     {
@@ -21,32 +23,32 @@ const courseBooks = [
         isbn: "9780980232714",
         courseName: "线性代数",
         author: "Gilbert",
-        libUrl: "www.baidu.com"
-    }
-]
+        libUrl: "www.baidu.com",
+    },
+];
 
 const courseBookColumns = [
     {
         field: "bookName",
         headerName: "书籍名称",
-        width: 250
+        width: 250,
     },
     {
         field: "isbn",
         headerName: "ISBN",
-        width: 150
+        width: 150,
     },
     {
         field: "author",
         headerName: "作者",
-        width: 150
+        width: 150,
     },
     {
         field: "libUrl",
         headerName: "图书馆链接",
-        width: 150
-    }
-]
+        width: 150,
+    },
+];
 
 const EditCourseForm = () => {
     return (
@@ -56,7 +58,7 @@ const EditCourseForm = () => {
             autoComplete="off"
         >
             <h2>修改课程信息</h2>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", width: "99%" }}
                     disabled
@@ -65,7 +67,7 @@ const EditCourseForm = () => {
                     defaultValue={course.teacherName}
                 />
             </div>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", width: "99%" }}
                     disabled
@@ -74,7 +76,7 @@ const EditCourseForm = () => {
                     defaultValue={course.major}
                 />
             </div>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", width: "99%" }}
                     multiline
@@ -83,20 +85,30 @@ const EditCourseForm = () => {
                     defaultValue={course.description}
                 />
             </div>
-            <div style={{ "textAlign": "center", }}>
-                <Button sx={{ mx: 1 }} variant="outlined" color="secondary" >撤销</Button>
+            <div style={{ textAlign: "center" }}>
+                <Button sx={{ mx: 1 }} variant="outlined" color="secondary">
+                    撤销
+                </Button>
                 <Button variant="outlined">提交</Button>
             </div>
         </Box>
-    )
-}
+    );
+};
 
-const ShowCourseBooks = () => {
+const ShowCourseBooks = ({ courseId, setBookEditingCourseId }) => {
     return (
         <Box>
             <div style={{ display: "flex", alignItems: "center" }}>
                 <h2>课程教参</h2>
-                <Button size="small" variant="outlined" sx={{ mx: 1 }} color="info" >
+                <Button
+                    size="small"
+                    variant="outlined"
+                    sx={{ mx: 1 }}
+                    color="info"
+                    onClick={(e) => {
+                        setBookEditingCourseId(courseId);
+                    }}
+                >
                     编辑课程参考
                 </Button>
             </div>
@@ -109,25 +121,64 @@ const ShowCourseBooks = () => {
                 />
             </div>
         </Box>
-    )
-}
+    );
+};
 
-export default function EditCourse() {
+export default function EditCourse({ editingCourseId, setEditingCourseId }) {
+    const [uploadingCourseId, setUploadingCourseId] = useState(null);
+    const [bookEditingCourseId, setBookEditingCourseId] = useState(null);
+
+    if (uploadingCourseId) {
+        return (
+            <EditCourseResources
+                uploadingCourseId={uploadingCourseId}
+                setUploadingCourseId={setUploadingCourseId}
+            />
+        );
+    }
+
+    if (bookEditingCourseId) {
+        return (
+            <EditCourseBooks
+                bookEditingCourseId={bookEditingCourseId}
+                setBookEditingCourseId={setBookEditingCourseId}
+            />
+        );
+    }
+
     return (
         <Box sx={{ textAlign: "flex" }}>
             <Box>
-                <Button sx={{ float: "right" }} size="small" variant="outlined">
+                <Button
+                    sx={{ float: "right" }}
+                    size="small"
+                    variant="outlined"
+                    onClick={(e) => {
+                        setEditingCourseId(null);
+                    }}
+                >
                     返回
                 </Button>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                    <h1>{course.name}({course.term})-{course.id}</h1>
-                    <Button size="small" variant="outlined" sx={{ mx: 1 }} color="info">
+                    <h1>
+                        {course.name}({course.term})-{course.id}
+                    </h1>
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        sx={{ mx: 1 }}
+                        color="info"
+                        onClick={(e) => setUploadingCourseId(editingCourseId)}
+                    >
                         添加课程资料
                     </Button>
                 </div>
             </Box>
             <EditCourseForm />
-            <ShowCourseBooks />
+            <ShowCourseBooks
+                courseId={editingCourseId}
+                setBookEditingCourseId={setBookEditingCourseId}
+            />
         </Box>
-    )
+    );
 }

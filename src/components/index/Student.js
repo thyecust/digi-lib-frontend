@@ -1,16 +1,16 @@
 import { TextField, Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid } from "@mui/x-data-grid";
 
 const user = {
-    name: "汤同学"
-}
+    name: "汤同学",
+};
 
 const studentCourseColumns = [
     {
         field: "code",
         headerName: "课程编号",
-        width: 150
+        width: 150,
     },
     {
         field: "name",
@@ -26,7 +26,7 @@ const studentCourseColumns = [
     {
         field: "term",
         headerName: "开课学期",
-        width: 150
+        width: 150,
     },
     {
         field: "viewable",
@@ -34,15 +34,15 @@ const studentCourseColumns = [
         sortable: false,
         filterable: false,
         disableColumnMenu: true,
-        renderCell: ViewCourseButton
-    }
-]
+        renderCell: ViewCourseButton,
+    },
+];
 
 const allCourseColumns = [
     {
         field: "code",
         headerName: "课程编号",
-        width: 150
+        width: 150,
     },
     {
         field: "name",
@@ -58,9 +58,9 @@ const allCourseColumns = [
     {
         field: "term",
         headerName: "开课学期",
-        width: 150
+        width: 150,
     },
-]
+];
 
 const courses = [
     {
@@ -69,7 +69,7 @@ const courses = [
         name: "Python 程序设计",
         major: "计算机科学与技术",
         term: "2021-2022-1",
-        viewable: true
+        viewable: true,
     },
     {
         id: 2,
@@ -77,7 +77,7 @@ const courses = [
         name: "线性代数",
         major: "公共基础",
         term: "2021-2022-2",
-        viewable: true
+        viewable: true,
     },
     {
         id: 3,
@@ -85,22 +85,18 @@ const courses = [
         name: "毛泽东思想与中国特色社会主义思想导论",
         major: "公共必修",
         term: "2021-2022-2",
-        viewable: true
-    }
-]
-
-
+        viewable: true,
+    },
+];
 
 function ViewCourseButton() {
-    return (
-        <Button>查看课程</Button>
-    )
+    return <Button>查看课程</Button>;
 }
 
 function StudentCourses() {
     return (
         <Box>
-            <div style={{ height:300, width: '100%' }}>
+            <div style={{ height: 300, width: "100%" }}>
                 <DataGrid
                     rows={courses}
                     columns={studentCourseColumns}
@@ -109,13 +105,13 @@ function StudentCourses() {
                 />
             </div>
         </Box>
-    )
+    );
 }
 
 function AllCourses() {
     return (
         <Box>
-            <div style={{ height:300, width: '100%' }}>
+            <div style={{ height: 300, width: "100%" }}>
                 <DataGrid
                     rows={courses}
                     columns={allCourseColumns}
@@ -124,14 +120,15 @@ function AllCourses() {
                 />
             </div>
         </Box>
-    )
+    );
 }
-
 
 export default function Student() {
     return (
         <Box>
-            <Box><h1>欢迎，{user.name} </h1></Box>
+            <Box>
+                <h1>欢迎，{user.name} </h1>
+            </Box>
             <Box m={1}>
                 <h2>您的选课</h2>
             </Box>
@@ -141,5 +138,5 @@ export default function Student() {
             </Box>
             <AllCourses />
         </Box>
-    )
+    );
 }

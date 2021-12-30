@@ -1,5 +1,3 @@
-import CreateBook from './create/CreateBook'
+import CreateBook from "./create/CreateBook";
 
-export {
-    CreateBook
-}
+export { CreateBook };

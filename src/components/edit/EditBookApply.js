@@ -1,4 +1,11 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, MenuItem, TextField } from "@mui/material";
+import {
+    Button,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    MenuItem,
+    TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 
@@ -11,29 +18,26 @@ const bookApply = {
     status: "已入库",
     applyTime: "2021-12-14",
     handleTime: "2021-12-30",
-    libUrl: ""
-}
+    libUrl: "",
+};
 
 function EditBookApplyFrom() {
-    const [status, setStatus] = useState(bookApply.status)
+    const [status, setStatus] = useState(bookApply.status);
 
     const statusSelectValues = [
         { value: "待处理", label: "待处理" },
         { value: "已拒绝", label: "已拒绝" },
         { value: "处理中", label: "处理中" },
-        { value: "已入库", label: "已入库" }]
+        { value: "已入库", label: "已入库" },
+    ];
 
     const handleStatusSelectChange = (event) => {
-        setStatus(event.target.value)
-    }
+        setStatus(event.target.value);
+    };
 
     return (
-        <Box
-            sx={{ width: 1000 }}
-            component="form"
-            autoComplete="off"
-        >
-            <div style={{ paddingBottom: "10px", }}>
+        <Box sx={{ width: 1000 }} component="form" autoComplete="off">
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", pr: "1%", width: "48%" }}
                     disabled
@@ -49,7 +53,7 @@ function EditBookApplyFrom() {
                     defaultValue={bookApply.bookName}
                 />
             </div>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", pr: "1%", width: "48%" }}
                     disabled
@@ -65,7 +69,7 @@ function EditBookApplyFrom() {
                     defaultValue={bookApply.courseName}
                 />
             </div>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", pr: "1%", width: "48%" }}
                     disabled
@@ -81,7 +85,7 @@ function EditBookApplyFrom() {
                     defaultValue={bookApply.applyTime}
                 />
             </div>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", pr: "1%", width: "98%" }}
                     select
@@ -97,7 +101,7 @@ function EditBookApplyFrom() {
                     ))}
                 </TextField>
             </div>
-            <div style={{ paddingBottom: "10px", }}>
+            <div style={{ paddingBottom: "10px" }}>
                 <TextField
                     sx={{ pl: "1%", pr: "1%", width: "98%" }}
                     id="courseName"
@@ -105,12 +109,14 @@ function EditBookApplyFrom() {
                     defaultValue="图书馆链接"
                 />
             </div>
-            <div style={{ "textAlign": "center", }}>
-                <Button sx={{ mx: 1 }} variant="outlined" color="secondary" >撤销</Button>
+            <div style={{ textAlign: "center" }}>
+                <Button sx={{ mx: 1 }} variant="outlined" color="secondary">
+                    撤销
+                </Button>
                 <Button variant="outlined">提交</Button>
             </div>
         </Box>
-    )
+    );
 }
 
 export default function EditBookApply() {
@@ -120,9 +126,11 @@ export default function EditBookApply() {
                 <Button sx={{ float: "right" }} size="small" variant="outlined">
                     返回
                 </Button>
-                <h1>书籍申请-{bookApply.bookName}-{bookApply.courseName}</h1>
+                <h1>
+                    书籍申请-{bookApply.bookName}-{bookApply.courseName}
+                </h1>
             </Box>
             <EditBookApplyFrom />
         </Box>
-    )
+    );
 }
