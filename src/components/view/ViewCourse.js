@@ -9,17 +9,6 @@ import ViewCourseBasics from "./ViewCourseBasics";
 
 import supabase from "../../supabase/Client";
 
-const courseBooks = [
-    {
-        id: 1,
-        bookName: "Introduction to Linear Algebra",
-        isbn: "9780980232714",
-        courseName: "线性代数",
-        author: "Gilbert",
-        libUrl: "www.baidu.com",
-    },
-];
-
 export default function ViewCourse({ courseId, setViewingCourseId }) {
     const [viewingCourseResources, setViewingCourseResources] = useState(false);
     const [course, setCourse] = useState(null);

@@ -1,19 +1,7 @@
-import { Button, MenuItem, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DownloadIcon from "@mui/icons-material/Download";
-
-const course = {
-    id: 2,
-    code: "00002",
-    name: "线性代数",
-    major: "公共基础",
-    term: "2021-2022-2",
-    teacherName: "罗老师",
-    description: "",
-    viewable: true,
-};
 
 const courseBooks = [
     {
