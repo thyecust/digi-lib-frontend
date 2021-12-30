@@ -1,8 +1,61 @@
 import MoreIcon from "@mui/icons-material/More";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { ClickEvent } from "./utils";
+
+const LibColumns = (setter) => [
+    {
+        field: "id",
+        headerName: "申请编号",
+        width: 90,
+    },
+    {
+        field: "bookName",
+        headerName: "书籍名称",
+        width: 300,
+    },
+    {
+        field: "isbn",
+        headerName: "ISBN",
+        width: 200,
+    },
+    {
+        field: "courseName",
+        headerName: "对应课程",
+        width: 150,
+    },
+    {
+        field: "applyerName",
+        headerName: "申请人",
+        width: 150,
+    },
+    {
+        field: "status",
+        headerName: "处理状态",
+        width: 150,
+    },
+    {
+        field: "handleTime",
+        headerName: "处理时间",
+        width: 200,
+    },
+    {
+        field: "actions",
+        type: "actions",
+        width: 80,
+        getActions: (params) => [
+            <GridActionsCellItem
+                icon={<EditIcon />}
+                label="处理图书申请"
+                onClick={(e) => {
+                    setter(params.id);
+                }}
+            />,
+        ],
+    },
+];
 
 const BookApplyColumns = () => [
     {
@@ -115,6 +168,7 @@ const DeletableBookColumns = (deleteIdHandler) => [
 ];
 
 export {
+    LibColumns,
     StudentCourseColumns,
     BookApplyColumns,
     BookColumns,

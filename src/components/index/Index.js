@@ -39,7 +39,7 @@ export default function Index({ session }) {
     return (
         <>
             {loading && <p>Loading</p>}
-            {user && user.role === "lib" && <Lib />}
+            {user && user.role === "lib" && <Lib user={user} />}
             {user && user.role === "teacher" && <Teacher user={user} />}
             {user && user.role === "student" && <Student user={user} />}
         </>
