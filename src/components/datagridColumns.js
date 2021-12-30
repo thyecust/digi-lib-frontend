@@ -34,6 +34,8 @@ const LibColumns = (setter) => [
     {
         field: "status",
         headerName: "处理状态",
+        type: "singleSelect",
+        valueOptions: ["待处理", "已拒绝", "处理中", "已入库"],
         width: 150,
     },
     {
